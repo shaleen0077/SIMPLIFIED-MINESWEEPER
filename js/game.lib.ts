@@ -19,15 +19,15 @@ class Minesweeper {
             <div class="ms-input">
                 <div class="ms-input-field">
                     <span>Rows</span>
-                    <input placeholder="Enter number of rows" id="ms-row" value="5" type="number" />
+                    <input placeholder="Enter number of rows" id="ms-row" min=2 value="5" type="number" />
                 </div>
                 <div class="ms-input-field">
                     <span>Columns</span>
-                    <input placeholder="Enter number of columns" id="ms-col" value="5" type="number" />
+                    <input placeholder="Enter number of columns" id="ms-col" min=2 value="5" type="number" />
                 </div>
                 <div class="ms-input-field">
                     <span>Mines</span>
-                    <input placeholder="Enter number of mines" id="ms-mines-count" value="2" type="number" />
+                    <input placeholder="Enter number of mines" id="ms-mines-count" min=0 value="2" type="number" />
                 </div>
                 <button type="button" id="ms-btn-play">Play</button>
             </div>
@@ -47,14 +47,20 @@ class Minesweeper {
                 const rows = parseInt(this.getInputFieldValueById('ms-row'));
                 const cols = parseInt(this.getInputFieldValueById('ms-col'));
                 const mines = parseInt(this.getInputFieldValueById('ms-mines-count'));
-                this.constructMineGrid(rows, cols);
-                this.placeMines(rows, cols, mines);
-                this.mines = mines;
-                this.cols = cols;
-                this.rows = rows;
-
-                // disable the button
-                (document.getElementById('ms-btn-play') as any).disabled = true;
+                if (rows < 1 || cols < 1 || mines < 0) {
+                    this.logData('Invalid inputs', 'error');
+                } else if (rows * cols <  mines) {
+                    this.logData('Mines count cannot be greater than total cells.', 'error');
+                } else {
+                    this.constructMineGrid(rows, cols);
+                    this.placeMines(rows, cols, mines);
+                    this.mines = mines;
+                    this.cols = cols;
+                    this.rows = rows;
+    
+                    // disable the button
+                    (document.getElementById('ms-btn-play') as any).disabled = true;
+                }
             } else if (target.classList.contains('ms-cell')) {
                 if (!this.gameReset) {
                     this.processCell(target);
@@ -143,7 +149,6 @@ class Minesweeper {
             mineLocationIndex.push(arr[randomIndex]);
             arr.splice(randomIndex, 1);
         }
-        console.log(mineLocationIndex);
         let index = 0;
         for (let i = 0; i < rows; i++) {
             this.minePosition[i] = []; 
@@ -152,8 +157,6 @@ class Minesweeper {
                 index++;
             }
         }
-
-        console.log(this.minePosition);
     }
 
     /**
@@ -181,7 +184,6 @@ class Minesweeper {
     }
 
     private getGameStatus(): void {
-        console.log(this.rows * this.cols, this.counter , this.mines);
         if ((this.rows * this.cols) === (this.counter + this.mines)) {
             this.gameReset = 1;
             this.logData('Won the game!!!', 'won-game');
