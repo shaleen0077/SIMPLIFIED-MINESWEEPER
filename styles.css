@@ -1,0 +1,84 @@
+body {
+    background-color: #696969;
+    margin: 0;
+}
+
+.game-heading {
+    background: #fff;
+    padding: 20px;
+    margin: 0 0 20px 0;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-align: center;
+    font-family: monospace;
+}
+
+.ms-input {
+    display: grid;
+    justify-content: center;
+    background-color: #ccc;
+    padding: 20px;
+}
+
+.ms-play {
+    display: grid;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.ms-input-field {
+    display: grid;
+    width: 400px;
+    padding: 5px;
+    grid-template-columns: 200px auto;
+}
+
+#ms-btn-play {
+    margin-top: 15px;
+    border: 2px solid #696969;
+    border-radius: 8px;
+    padding: 5px 20px;
+}
+
+.ms-cell {
+    border: 2px solid;
+    border-color: #eee #444 #444 #eee;
+    background-color: #ccc;
+    vertical-align: middle;
+    text-align: center;
+    text-align: center;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.ms-cell-open {
+    cursor: not-allowed;
+    background: #fff;
+}
+
+.ms-cell-bomb {
+    background-image: url('../images/bomb.png');
+    background-size: 40px;
+}
+
+.won-game {
+    background-color: rgb(13, 174, 13);
+    color: #fff;
+    padding: 5px;
+    font-size: 30px;
+}
+
+.error {
+    color: #d63b3b;
+    font-weight: 800;
+    background: #fff;
+}
+
+.logging {
+    padding-top: 20px;
+    padding-left: 10px;
+    font-family: monospace;
+}
